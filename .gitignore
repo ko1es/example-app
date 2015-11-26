@@ -1,40 +1,76 @@
-syntax: regexp
-\.\#.+
-~$
+# OSX
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+/bin/
+/env/
+/build/
+/develop-eggs/
+/dist/
+/downloads/
+/eggs/
+/lib/
+/lib64/
+/parts/
+/sdist/
+/var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+.env
+
+# Keys store
+keys/*
+
+# JS
+node_modules
+server/*.log
+
+# Editors
+.idea
+*.swp
+*.pyc
+*.sqlite3
 \.pyc$
-\.pyo$
 \.orig$
-\.rej$
-\.mo$
-\.pdf$
-\.LOCK$
-^\.settings/
-^static/
-^src/project/settings.py
-src/\.coverage
-\.project$
-\.pydevproject$
-\.DS_Store
-^www/.webassets-cache
-^src/static/
-^ck.js$
-^media/
-^docs/build/
-^tags
-^update-ctags\.sh
-^\.ropeproject/
-\.map
-^www/
-syntax: glob
-src/.ropeproject/config.py
-src/.ropeproject/globalnames
-src/.ropeproject/history
-src/.ropeproject/objectdb
-.sass-cache
-ek.sublime-project
-ek.sublime-workspace
-. /.ropeproject/config.py
-. /.ropeproject/globalnames
-. /.ropeproject/history
-. /.ropeproject/objectdb
-^old_src/
+\.sqlite3
+dump.rdb
+
+.tm_properties
+
+
+docker/private/*
+
+/src/assets/media
