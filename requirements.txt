@@ -1,0 +1,6 @@
+Django==1.9c1
+Markdown==2.6.5
+django-filter==0.11.0
+djangorestframework==3.3.1
+ipdb==0.8.1
+ipython==4.0.1
