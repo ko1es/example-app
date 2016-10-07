@@ -22,7 +22,7 @@ tags:
 # will be prefixed to all paths
 basePath: /api/
 paths:
-  /building/list/:
+  /building/:
     get:
       tags:
         - Building
@@ -34,38 +34,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Building'
-        # 400:
-        #   description: Serializer error
-        #   schema:
-        #       $ref: '#/definitions/SerializerError'
-
-  /building/{buildingId}/company-list/:
-    get:
-      tags:
-        - Building
-      parameters:
-        - in: path
-          name: buildingId
-          required: True
-          type: integer
-      description: Retrieve company list inside specified building
-      responses:
-        200:
-          description: Company list inside specified building
   # Rubric
-  /rubric/{rubricId}/company-list/:
-    get:
-      tags:
-       - Rubric
-      parameters:
-        - in: path
-          name: rubricId
-          required: True
-          type: integer
-      description: Retrieve company list in specified rubric
-      responses:
-        200:
-          description: Company list in specified rubric
   /rubric/rubricator/:
     get:
       tags:
@@ -74,6 +43,8 @@ paths:
       responses:
         200:
           description: Retrieve rubric tree
+          schema:
+            $ref: '#/definitions/Rubric'
   /rubric/rubricator/{rubricId}/:
     get:
       tags:
@@ -87,9 +58,54 @@ paths:
       responses:
         200:
           description: Retrieve rubric tree by specified parent
+          schema:
+            $ref: '#/definitions/Rubric'
   # Company
-  # /company/search/:
-  # /company/detail/(?P<pk>\d+)/:
+  /company/:
+    get:
+      tags:
+        - Company
+      parameters:
+        - in: path
+          name: building
+          required: false
+          type: integer
+          description: filter by buildingId
+        - in: path
+          required: false
+          name: name
+          type: string
+          description: search by name
+        - in: path
+          required: false
+          name: rubric
+          type: integer
+          description: filter by rubricId
+      description: Retrieve company list filtered by specified parameters
+      responses:
+        200:
+          description: Company list filtered by specified parameters
+          schema:
+            type: array
+            title: List of companies
+            items:
+              $ref: '#/definitions/CompanyList'
+  /company/{companyId}/:
+    get:
+      tags:
+        - Company
+      parameters:
+        - in: path
+          name: companyId
+          required: true
+          type: integer
+          description: 
+      description: Retrieve specified company
+      responses:
+        200:
+          description: Retrieve specified company
+          schema:
+            $ref: '#/definitions/CompanyList'
 
 definitions:
 
@@ -131,4 +147,41 @@ definitions:
       lat:
         type: integer
       lon:
+        type: string
+
+  CompanyList:
+    type: object
+    title: CompanyList
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      building:
+        $ref: '#/definitions/Building'
+      phones:
+        type: array
+        items:
+          type: string
+      rubrics:
+        type: array
+        items:
+          type: string
+  Rubric:
+    type: object
+    title: Rubric
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      parent:
+        $ref: '#/definitions/RubricParent'
+  RubricParent:
+    type: object
+    title: RubricParent
+    properties:
+      id:
+        type: integer
+      name:
         type: string

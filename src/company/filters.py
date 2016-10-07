@@ -4,27 +4,37 @@ import django_filters
 
 from django.core.validators import EMPTY_VALUES
 
-from company.models import Company
+from company import models
 
 
-class CompanySearchFilter(django_filters.NumberFilter):
+class CompanySearchFilter(django_filters.CharFilter):
     """Company search filter."""
 
     def filter(self, qs, value):
         """Filter method."""
         if value not in EMPTY_VALUES:
-            # TODO: check value is category id
-            return qs.filter(companysubcategory__subcategory__id=value)
+            return qs.search(value)
+        return qs
+
+
+class CompanyRubricFilter(django_filters.NumberFilter):
+    """Company rubric filter."""
+
+    def filter(self, qs, value):
+        """Filter method."""
+        if value not in EMPTY_VALUES:
+            return qs.by_rubric(value)
         return qs
 
 
 class CompanyFilter(django_filters.FilterSet):
-    """Company filter."""
+    """Company filterset."""
 
-    coordinates = CompanySearchFilter()
+    name = CompanySearchFilter()
+    rubric = CompanySearchFilter()
 
     class Meta:
         """Meta class."""
 
-        model = Company
-        fields = ['coordinates', ]
+        model = models.Company
+        fields = ['building', 'name', 'rubric']

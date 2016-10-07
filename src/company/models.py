@@ -88,6 +88,26 @@ class CompanyManager(models.Manager):
 class CompanyQuerySet(models.query.QuerySet):
     """Extended QuerySet for Company model."""
 
+    def search(self, name):
+        """Search company by name."""
+        return self.filter(name__icontains=name)
+
+    def by_rubric(self, rubric_id):
+        """Search company by rubric."""
+        return self.filter(rubrics__rubric__id=rubric_id)
+
+    def all_prefetches(self):
+        """Prefetch all related models."""
+        return self.prefetch_related('phones', 'rubrics__rubric')
+
+    def all_selections(self):
+        """Select all related models."""
+        return self.select_related('building')
+
+    def all_relations(self):
+        """Prefetch and select related models."""
+        return self.all_selections().all_prefetches()
+
 
 class Company(TemplateModel):
     """Company model."""

@@ -30,22 +30,23 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-EXTERNAL_APPS = [
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+
+INTERNAL_APPS = ('company',)
+
+EXTERNAL_APPS = (
     'rest_framework',
     'django_filters',
-]
+)
 
-INTERNAL_APPS = [
-    'company',
-]
-
-INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS
+INSTALLED_APPS = DJANGO_APPS + INTERNAL_APPS + EXTERNAL_APPS
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,4 +135,6 @@ REST_FRAMEWORK = {
         'rest_framework.filters.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter'
     ),
+    'DEFAULT_PAGINATION_CLASS': 'company.pagination.ExamplePagination',
+    'DATE_FORMAT': '%d.%m.%Y',
 }
