@@ -1,12 +1,15 @@
 # example-app
-Example app, powered by Django and Django Rest Framework
+Powered by Django, Django Rest Framework, Swagger and all other usefull libs and packages
 
-Installation
+## Installation
+### 1. Pip \ virtualenvwrapper way
+ ```sh
+ pip install -r requirements.txt
+ python src/manage.py runserver
+```
 
-*1. Pip \ virtualenvwrapper way*
-pip install -r requirements.txt
-python src/manage.py runserver
-
-*2. Docker-composer way.*
-docker-compose build
-docker-compose up
+### 2. Docker-composer way.
+ ```sh
+ docker-compose build
+ docker-compose up
+```
