@@ -23,9 +23,8 @@ class DocumentationView(TemplateView):
 
 # Company views
 
-
 class CompanyDetail(generics.RetrieveAPIView):
-    u"""Company detail view."""
+    """Company detail view."""
 
     queryset = models.Company.objects.all()
     serializer_class = serializers.CompanySerializer
@@ -33,7 +32,7 @@ class CompanyDetail(generics.RetrieveAPIView):
 
 
 class CompanyListView(generics.ListAPIView):
-    u"""Company list resource.
+    """Company list resource.
 
     Filtering and search available by following parameters:
     - building

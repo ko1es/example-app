@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.core.validators import EMPTY_VALUES
 from django.utils.translation import ugettext_lazy as _
 
 from utils.models import TemplateModel, CreatedModel, NULLABLE
@@ -62,27 +61,6 @@ class Rubric(TemplateModel):
 
 class CompanyManager(models.Manager):
     """Extended manager for Company model."""
-
-    def get_list(self, building=None, rubric=None,
-                 lat=None, lon=None, search=None):
-        """Get list method."""
-        kwargs = {}
-        if building:
-            kwargs['building__id'] = building
-        if rubric:
-            kwargs['rubrics__rubric__id'] = rubric
-        if lat:
-            kwargs['building__lat__lte'] = lat
-        if lon:
-            kwargs['building__lon__lte'] = lon
-        if search:
-            kwargs['name__icontains'] = search
-        qs = self
-        if kwargs not in EMPTY_VALUES:
-            qs = qs.filter(**kwargs)
-        qs = qs.prefetch_related('phones', 'rubrics__rubric')
-        qs = qs.select_related('building',)
-        return qs.distinct()
 
 
 class CompanyQuerySet(models.query.QuerySet):
