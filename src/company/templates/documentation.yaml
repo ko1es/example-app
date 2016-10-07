@@ -23,7 +23,7 @@ tags:
 basePath: /api/
 paths:
   /building/list/:
-    post:
+    get:
       tags:
         - Building
       description: Retrieve a building list
@@ -34,10 +34,62 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Building'
-        400:
-          description: Serializer error
-          schema:
-              $ref: '#/definitions/SerializerError'
+        # 400:
+        #   description: Serializer error
+        #   schema:
+        #       $ref: '#/definitions/SerializerError'
+
+  /building/{buildingId}/company-list/:
+    get:
+      tags:
+        - Building
+      parameters:
+        - in: path
+          name: buildingId
+          required: True
+          type: integer
+      description: Retrieve company list inside specified building
+      responses:
+        200:
+          description: Company list inside specified building
+  # Rubric
+  /rubric/{rubricId}/company-list/:
+    get:
+      tags:
+       - Rubric
+      parameters:
+        - in: path
+          name: rubricId
+          required: True
+          type: integer
+      description: Retrieve company list in specified rubric
+      responses:
+        200:
+          description: Company list in specified rubric
+  /rubric/rubricator/:
+    get:
+      tags:
+       - Rubric
+      description: Retrieve rubric tree
+      responses:
+        200:
+          description: Retrieve rubric tree
+  /rubric/rubricator/{rubricId}/:
+    get:
+      tags:
+       - Rubric
+      parameters:
+        - in: path
+          name: rubricId
+          required: True
+          type: integer
+      description: Retrieve rubric tree by specified parent
+      responses:
+        200:
+          description: Retrieve rubric tree by specified parent
+  # Company
+  # /company/search/:
+  # /company/detail/(?P<pk>\d+)/:
 
 definitions:
 
