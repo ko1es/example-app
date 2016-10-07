@@ -14,6 +14,14 @@ class IndexView(TemplateView):
     template_name = 'index.html'
 
 
+class DocumentationView(TemplateView):
+    """Yaml Documentation view."""
+
+    template_name = 'documentation.yaml'
+
+# Api views
+
+
 class BuildingCompanies(generics.ListAPIView):
     u"""Выдача всех организаций находящихся в конкретном здании."""
 

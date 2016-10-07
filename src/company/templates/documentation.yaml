@@ -1,0 +1,82 @@
+swagger: '2.0'
+# This is your document metadata
+info:
+  version: "0.0.0"
+  title: Example API resources documentation
+schemes:
+  - https
+consumes:
+  - application/json
+  - text/xml
+produces:
+  - application/json
+  - text/html
+tags:
+  - name: Building
+    description: Building resources
+  - name: Rubric
+    description: Rubric resources
+  - name: Company
+    description: Company resources
+
+# will be prefixed to all paths
+basePath: /api/
+paths:
+  /building/list/:
+    post:
+      tags:
+        - Building
+      description: Retrieve a building list
+      responses:
+        200:
+          description: Retrieve a building list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Building'
+        400:
+          description: Serializer error
+          schema:
+              $ref: '#/definitions/SerializerError'
+
+definitions:
+
+  # Responses
+  SerializerError:
+    type: array
+    items:
+      title: SerializerError
+      type: object
+      properties:
+        fieldname:
+          type: string
+        errormessage:
+          type: string
+  ResultObject:
+    type: array
+    title: Result
+    items:
+      type: object
+      properties:
+        result:
+          type: boolean
+        message:
+          type: string
+  PermissionDenied:
+    type: object
+    properties:
+      detail:
+        type: string
+  # Models
+  Building:
+    type: object
+    title: Building
+    properties:
+      id:
+        type: integer
+      address:
+        type: string
+      lat:
+        type: integer
+      lon:
+        type: string

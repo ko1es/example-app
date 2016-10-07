@@ -44,7 +44,7 @@ class BuildingSerializer(serializers.ModelSerializer):
         """Meta class."""
 
         model = models.Building
-        fields = ('address', 'lat', 'lon')
+        fields = ('id', 'address', 'lat', 'lon')
 
 
 class CompanySerializer(serializers.ModelSerializer):
