@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import patterns, url
+"""Company url config."""
+from django.conf.urls import url
 
 from company import views
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     # building
     url(r'^building/(?P<pk>\d+)/company-list/$',
         views.BuildingCompanies.as_view(), name='building-companies'),
@@ -25,5 +25,4 @@ urlpatterns = patterns(
         views.CompanySearch.as_view(), name='company-search'),
     url(r'^company/detail/(?P<pk>\d+)/$',
         views.CompanyDetail.as_view(), name='company-detail'),
-
-)
+]

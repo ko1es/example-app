@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Project url config."""
 from django.conf.urls import url, include
 from django.contrib import admin
 from company.views import IndexView

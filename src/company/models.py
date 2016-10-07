@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Company models."""
 from __future__ import unicode_literals
 
 from django.db import models
@@ -9,48 +10,62 @@ from utils.models import TemplateModel, CreatedModel, NULLABLE
 
 
 class BuildingManager(models.Manager):
-    pass
+    """Extended Building model manager."""
+
+
+class BuildingQuerySet(models.query.QuerySet):
+    """Extended QuerySet for Building model."""
 
 
 class Building(CreatedModel):
-    address = models.CharField(max_length=255,
-                               default=None,
-                               verbose_name=_('address'),
-                               **NULLABLE)
+    """Building model."""
 
-    lat = models.IntegerField(default=None,
-                              verbose_name=_('Latitude'),
-                              **NULLABLE)
-    lon = models.IntegerField(default=None,
-                              verbose_name=_('Longitude'),
-                              **NULLABLE)
+    address = models.CharField(
+        max_length=255, default=None,
+        verbose_name=_('address'), **NULLABLE)
 
-    objects = BuildingManager()
+    lat = models.IntegerField(
+        default=None, verbose_name=_('Latitude'), **NULLABLE)
+
+    lon = models.IntegerField(
+        default=None, verbose_name=_('Longitude'), **NULLABLE)
+
+    objects = BuildingManager.from_queryset(BuildingQuerySet)()
 
     def __str__(self):
+        """String method."""
         return self.address
 
     def __unicode__(self):
+        """Unicode method."""
         return self.address
 
     class Meta:
+        """Meta class."""
+
         verbose_name = _('Building')
         verbose_name_plural = _('Buildings')
 
 
 class Rubric(TemplateModel):
-    parent = models.ForeignKey("self",
-                               default=None,
-                               **NULLABLE)
+    """Rubric model."""
+
+    parent = models.ForeignKey(
+        "self", default=None, **NULLABLE)
 
     class Meta:
+        """Meta class."""
+
         verbose_name = _('Rubric')
         verbose_name_plural = _('Rubrics')
 
 
 class CompanyManager(models.Manager):
+    """Extended manager for Company model."""
+
     def get_list(self, building=None, rubric=None,
                  lat=None, lon=None, search=None):
+        """Get list method."""
         kwargs = {}
         if building:
             kwargs['building__id'] = building
@@ -70,48 +85,63 @@ class CompanyManager(models.Manager):
         return qs.distinct()
 
 
-class Company(TemplateModel):
-    building = models.ForeignKey(Building,
-                                 verbose_name=_('Building'))
+class CompanyQuerySet(models.query.QuerySet):
+    """Extended QuerySet for Company model."""
 
-    objects = CompanyManager()
+
+class Company(TemplateModel):
+    """Company model."""
+
+    building = models.ForeignKey(Building, verbose_name=_('Building'))
+
+    objects = CompanyManager.from_queryset(CompanyQuerySet)()
 
     class Meta:
+        """Meta class."""
+
         verbose_name = _('Company')
         verbose_name_plural = _('Companies')
 
 
 class CompanyPhone(CreatedModel):
-    phone = models.CharField(max_length=20,
-                             verbose_name=_('Phone'))
-    company = models.ForeignKey(Company,
-                                related_name='phones',
-                                verbose_name=_('Company'))
+    """CompanyPhone model."""
+
+    phone = models.CharField(max_length=20, verbose_name=_('Phone'))
+    company = models.ForeignKey(
+        Company, related_name='phones', verbose_name=_('Company'))
 
     def __str__(self):
+        """String method."""
         return self.phone
 
     def __unicode__(self):
+        """Unicode method."""
         return self.phone
 
     class Meta:
+        """Meta class."""
+
         verbose_name = _('Phone')
         verbose_name_plural = _('Phones')
 
 
 class CompanyRubric(CreatedModel):
-    company = models.ForeignKey(Company,
-                                related_name='rubrics',
-                                verbose_name=_('Company'))
-    rubric = models.ForeignKey(Rubric,
-                               verbose_name=_('Rubric'))
+    """CompanyRubric model."""
+
+    company = models.ForeignKey(
+        Company, related_name='rubrics', verbose_name=_('Company'))
+    rubric = models.ForeignKey(Rubric, verbose_name=_('Rubric'))
 
     def __str__(self):
+        """String method."""
         return self.rubric.name
 
     def __unicode__(self):
+        """Unicode method."""
         return self.rubric.name
 
     class Meta:
+        """Meta class."""
+
         verbose_name = _('Company rubric')
         verbose_name_plural = _('Company rubrics')
