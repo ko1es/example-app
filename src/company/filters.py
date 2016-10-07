@@ -38,3 +38,13 @@ class CompanyFilter(django_filters.FilterSet):
 
         model = models.Company
         fields = ['building', 'name', 'rubric']
+
+
+class RubricFilterSet(django_filters.FilterSet):
+    """Rubric filter."""
+
+    class Meta:
+        """Meta class."""
+
+        model = models.Rubric
+        fields = ['parent', ]

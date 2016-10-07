@@ -25,7 +25,7 @@ class DocumentationView(TemplateView):
 
 
 class CompanyDetail(generics.RetrieveAPIView):
-    u"""Выдача информации об организациях по их идентификаторам."""
+    u"""Company detail view."""
 
     queryset = models.Company.objects.all()
     serializer_class = serializers.CompanySerializer
@@ -68,10 +68,5 @@ class Rubricator(generics.ListAPIView):
 
     serializer_class = serializers.RubricSerializer
     model = models.Rubric
-
-    def get_queryset(self):
-        """Get queryset method."""
-        parent = self.kwargs.get('pk', None)
-        if parent:
-            return models.Rubric.objects.filter(parent_id=parent)
-        return models.Rubric.objects.all()
+    filter_class = filters.RubricFilterSet
+    queryset = models.Rubric.objects.all()

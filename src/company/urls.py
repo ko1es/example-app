@@ -10,9 +10,7 @@ urlpatterns = [
     url(r'^building/$',
         views.BuildingListView.as_view(), name='building-list'),
     # # Rubric
-    url(r'^rubric/rubricator/$',
-        views.Rubricator.as_view(), name='rubricator'),
-    url(r'^rubric/rubricator/(?P<pk>\d+)/$',
+    url(r'^rubric/$',
         views.Rubricator.as_view(), name='rubricator'),
     # # Company
     url(r'^company/$',

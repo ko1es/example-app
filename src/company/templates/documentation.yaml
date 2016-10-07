@@ -35,29 +35,20 @@ paths:
             items:
               $ref: '#/definitions/Building'
   # Rubric
-  /rubric/rubricator/:
-    get:
-      tags:
-       - Rubric
-      description: Retrieve rubric tree
-      responses:
-        200:
-          description: Retrieve rubric tree
-          schema:
-            $ref: '#/definitions/Rubric'
-  /rubric/rubricator/{rubricId}/:
+  /rubric/:
     get:
       tags:
        - Rubric
       parameters:
         - in: path
-          name: rubricId
-          required: True
+          name: parent
           type: integer
-      description: Retrieve rubric tree by specified parent
+          required: false
+          description: Filter rubrics by parent
+      description: Retrieve rubric tree
       responses:
         200:
-          description: Retrieve rubric tree by specified parent
+          description: Retrieve rubric tree
           schema:
             $ref: '#/definitions/Rubric'
   # Company
